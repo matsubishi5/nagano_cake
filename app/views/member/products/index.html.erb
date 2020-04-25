@@ -1,0 +1,13 @@
+<h1>商品一覧(全<%= @products.count %>)</h1>
+
+<% @products.each do |product| %>
+
+	<%= link_to member_product_path(product) do %>
+		<%= attachment_image_tag product, :image, :fill, 60, 60, fallback: "no_image.jpg" %>
+	<% end %>
+
+	<%= product.name %>
+
+	¥<%= product.price %>
+
+<% end %>

@@ -1,0 +1,26 @@
+<h1>会員詳細画面</h1>
+
+<%= label_tag :会員ID %>
+<%= @member.id %>
+<%= @member.is_valid %>会員<br>
+
+<%= label_tag :氏名 %>
+<%= @member.full_name %><br>
+
+<%= label_tag :フリガナ %>
+<%= @member.full_reading_name %><br>
+
+<%= label_tag :郵便番号 %>
+<%= @member.post_code %><br>
+
+<%= label_tag :住所 %>
+<%= @member.address %><br>
+
+<%= label_tag :電話番号 %>
+<%= @member.telephone_number %><br>
+
+<%= label_tag :メールアドレス %>
+<%= @member.email %><br>
+
+<%= link_to "編集する", edit_admin_member_path(@member) %><br>
+<%= link_to "注文一覧を見る", admin_orders_path %>

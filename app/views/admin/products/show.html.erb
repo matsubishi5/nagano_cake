@@ -1,0 +1,20 @@
+<h1>商品 詳細画面</h1>
+
+<%= attachment_image_tag @product, :image, :fill, 60, 60, fallback: "no_image.jpg" %>
+
+<p>商品名<%= @product.name %></p>
+
+<p>商品説明<%= @product.introduction %></p>
+
+<p>ジャンル<%= @product.genre.name %></p>
+
+<p>
+	<% @taxed_price = @product.price * 1.1 %>
+	税抜価格(税込価格)<%= @product.price %>(<%= @taxed_price.floor %>)
+</p>
+
+<p>販売ステータス<%= @product.is_valid %></p>
+
+<%= link_to "編集", edit_admin_product_path(@product) %>
+
+<%= link_to "削除", admin_product_path(@product), method: :delete, data: { confirm: "本当に削除しますか？" } %>

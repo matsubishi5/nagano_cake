@@ -1,0 +1,64 @@
+<h1>ショッピングカート</h1>
+
+<%= link_to "カートを空にする", member_empty_path, method: :delete, data: { confirm: "本当にカートを空にしますか？" } %>
+
+<table>
+	<thead>
+		<tr>
+			<th>商品名</th>
+			<th>単価(税込)</th>
+			<th>数量</th>
+			<th>小計</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @total_price = 0 %>
+		<% @cart_products.each do |cart_product| %>
+			<tr>
+				<td>
+					<%= link_to member_product_path(cart_product.product) do %>
+						<%= attachment_image_tag cart_product.product, :image, :fill, 60, 60, fallback: "no_image.jpg" %>
+					<% end %>
+					<%= cart_product.product.name %>
+				</td>
+
+				<td>
+					<% @taxed_price = cart_product.product.price * 1.1 %>
+					<%= @taxed_price.floor %>
+				</td>
+
+				<td>
+					<%= form_with model: cart_product, url: member_cart_product_path(cart_product) do |f| %>
+						<%= f.number_field :quantity %>
+						<%= f.submit "更新" %>
+					<% end %>
+				</td>
+
+				<td>
+					<% @price = cart_product.product.price * cart_product.quantity * 1.1 %>
+					<% @total_price += @price %>
+					<%= @price.floor %>
+				</td>
+
+				<td><%= link_to "削除", member_cart_product_path(cart_product), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<table>
+	<tbody>
+			<tr>
+				<th>合計金額</th>
+				<td><%= @total_price.floor %></td>
+			</tr>
+	</tbody>
+</table>
+
+<%= link_to "買い物を続ける", member_products_path %>
+
+<% if @cart_products.present?  %>
+	<%= link_to "情報入力に進む", new_member_order_path %>
+<% end %>

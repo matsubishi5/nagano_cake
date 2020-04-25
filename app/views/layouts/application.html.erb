@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NaganoCake</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+		<% if member_signed_in? %>
+			<li>ようこそ <%= current_member.full_name %> さん !</li>
+			<li><%= link_to "マイページ", member_member_path(current_member) %></li>
+			<li><%= link_to "商品一覧", member_products_path %></li>
+			<li><%= link_to "カート", member_cart_products_path %></li>
+			<li><%= link_to "ログアウト", destroy_member_session_path, method: :delete %></li>
+		<% elsif admin_signed_in? %>
+			<li><%= link_to "商品一覧", admin_products_path %></li>
+			<li><%= link_to "会員一覧", admin_members_path %></li>
+			<li><%= link_to "注文履歴一覧", admin_orders_path %></li>
+			<li><%= link_to "ジャンル管理", admin_genres_path %></li>
+			<li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+		<% else %>
+			<% unless request.path.include?("admins/sign_in") %>
+				<li><%= link_to "商品一覧", member_products_path %></li>
+				<li><%= link_to "新規登録", new_member_registration_path %></li>
+				<li><%= link_to "ログイン", new_member_session_path %></li>
+			<% end %>
+		<% end %>
+    <%= yield %>
+  </body>
+</html>

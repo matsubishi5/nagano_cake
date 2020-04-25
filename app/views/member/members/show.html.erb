@@ -1,0 +1,45 @@
+<h1>マイページ</h1>
+
+<%= label_tag :登録情報 %>
+<%= link_to "編集", edit_member_member_path %>
+<%= link_to "パスワード変更", edit_member_registration_path %>
+
+<table>
+	<tbody>
+		<tr>
+			<th>氏名</th>
+			<td><%= @member.full_name %></td>
+		</tr>
+
+		<tr>
+			<th>カナ</th>
+			<td><%= @member.full_reading_name %></td>
+		</tr>
+
+		<tr>
+			<th>郵便番号</th>
+			<td><%= @member.post_code %></td>
+		</tr>
+
+		<tr>
+			<th>住所</th>
+			<td><%= @member.address %></td>
+		</tr>
+
+		<tr>
+			<th>電話番号</th>
+			<td><%= @member.telephone_number %></td>
+		</tr>
+
+		<tr>
+			<th>メールアドレス</th>
+			<td><%= @member.email %></td>
+		</tr>
+	</tbody>
+</table>
+
+<%= label_tag :配送先一覧 %>
+<%= link_to "一覧を見る", member_deliveries_path %>
+
+<%= label_tag :注文履歴一覧 %>
+<%= link_to "一覧を見る", member_orders_path %>
